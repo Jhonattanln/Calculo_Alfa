@@ -8,7 +8,7 @@ hml = pd.read_excel('HML_Factor.xlsx', parse_dates=True, index_col=0)
 mark = pd.read_excel('Market_Factor.xlsx', parse_dates=True, index_col=0)
 smb = pd.read_excel('SMB_Factor.xlsx', parse_dates=True, index_col=0)
 wml = pd.read_excel('WML_Factor.xlsx', parse_dates=True, index_col=0)
-#Fama = pd.read_excel('FamaFrenchFactor.xlsx', parse_dates=True, index_col=0)
+
 
 ##### Ajustando nomes das colunas
 
@@ -22,7 +22,7 @@ factor = pd.concat([mark, hml, smb, wml, funds['4um Small Caps FIA']], axis=1).d
 print(factor.describe())
 
 #### Regressão
-"""
+
 rsquared = pd.DataFrame()
 fama_df = pd.DataFrame()
 
@@ -32,18 +32,8 @@ for i in funds.columns:
     fama_df[i] = rsquared[i].rsquared_adj
 
 print(fama_df)
-"""
 
-"""
-# Define the regression formula
-FamaFrench_model = smf.ols(formula = '4um Small Caps FIA ~ SMB', data=factor)
 
-# Fit the regression
-FamaFrench_fit = FamaFrench_model.fit()
 
-# Extract the adjusted r-squared
-regression_adj_rsq = FamaFrench_fit.rsquared_adj
-print(regression_adj_rsq)
-"""
 
 
