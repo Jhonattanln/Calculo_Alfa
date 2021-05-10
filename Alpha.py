@@ -18,7 +18,7 @@ columns(funds)
 
 #### Concatenando dados
 funds = funds.pct_change()
-factor = pd.concat([mark, hml, smb, wml, funds['4um Small Caps FIA']], axis=1).dropna()
+factor = pd.concat([mark, hml, smb, wml, funds], axis=1).dropna()
 print(factor.describe())
 
 #### Regressão
