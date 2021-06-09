@@ -1,5 +1,7 @@
 import pandas as pd
-import statsmodels.formula.api as smf
+import numpy as np
+from statsmodels import regression
+import statsmodels.api as smf
 
 
 #### Importando os dados
@@ -19,21 +21,16 @@ columns(funds)
 #### Concatenando dados
 funds = funds.pct_change()
 factor = pd.concat([mark, hml, smb, wml, funds], axis=1).dropna()
-print(factor.info())
+#print(factor.head())
 
 #### Regressão
-
-rsquared = pd.DataFrame()
-fama_df = pd.DataFrame()
-
-for i in funds.columns:
-    rsquared[i] = smf.ols(formula=f'{i} ~ Market_Factor + HML + SMB + WML', data=factor)
-    rsquared[i] = rsquared[i].fit()
-    fama_df[i] = rsquared[i].rsquared_adj
-
-print(fama_df)
+funds_name = funds.columns
 
 
 
+def reg(y):
+    alfa = regression.linear_model.OLS(y, smf.add_constant(np.column_stack((factor['Market_Factor'], factor['HML'], 
+    factor['SMB'], factor['WML'])))).fit()
+    print(alfa.summary())
 
-
+reg(factor['Zenith Fc FIA'])
