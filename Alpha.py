@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from statsmodels import regression
 import statsmodels.api as smf
+from statsmodels.tools.tools import add_constant
 
 
 #### Importando os dados
@@ -26,11 +27,20 @@ factor = pd.concat([mark, hml, smb, wml, funds], axis=1).dropna()
 #### Regressão
 funds_name = funds.columns
 
-
-
 def reg(y):
-    alfa = regression.linear_model.OLS(y, smf.add_constant(np.column_stack((factor['Market_Factor'], factor['HML'], 
-    factor['SMB'], factor['WML'])))).fit()
-    print(alfa.summary())
+    X = add_constant(factor[['Market_Factor', 'HML', 'SMB', 'WML']])
+    Y = y
+    fit = smf.OLS(Y, X).fit()
+    p_value = fit.pvalues['const']
+    r_2 = fit.rsquared_adj
+    alpha = fit.params[0]
+    
+alfa = pd.DataFrame()
 
-reg(factor['Zenith Fc FIA'])
+for i in funds.columns:
+    alfa[i] = reg(factor[i])
+
+print(alfa)
+
+
+
