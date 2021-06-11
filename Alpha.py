@@ -31,22 +31,19 @@ def reg(y):
     X = add_constant(factor[['Market_Factor', 'HML', 'SMB', 'WML']])
     Y = y
     fit = smf.OLS(Y, X).fit()
+    alpha_an = ((1+fit.params[0])**252)-1
     var = {'p_values': fit.pvalues['Market_Factor'],
             'r_2': fit.rsquared_adj,
-            'alpha': fit.params[0]}
+            'alpha': alpha_an}
     return var
 
-x = reg(factor['Xp Investor Dividendos 30 Fc FIA'])
-print(x)
 
-"""
-alfa = pd.DataFrame()
+dict = {}
 
 for i in funds.columns:
     x = reg(factor[i])
-    alfa['p_value'] = x['p_values']
+    dict[i] = x
+    
+alfa = pd.DataFrame(dict)
 
-print(alfa)
-"""
-
-
+alfa.to_excel('Alfa.xlsx')
