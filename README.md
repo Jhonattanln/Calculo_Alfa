@@ -3,7 +3,7 @@
 
 Os 30 fundos que mais geraram Alfa nos últimos dois anos.
 
-Rodei uma regressão com o modelo de 4 fatores (Mercado, Tamanho, Valor e Momentum) disponibilizados pelo NEFIN-FEA-USP.
+Rodei uma regressão com o modelo de 4 fatores (Mercado, Tamanho, Valor e Momentum) disponibilizados pelo NEFIN da FEA-USP.
 
 Resultado muito interessante para vários fundos com alfa positivo e estatisticamente significativo.
 
