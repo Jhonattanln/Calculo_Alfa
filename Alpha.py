@@ -32,11 +32,10 @@ def reg(y):
     Y = y
     fit = smf.OLS(Y, X).fit()
     alpha_an = ((1+fit.params[0])**252)-1
-    var = {'p_values': fit.pvalues['Market_Factor'],
+    var = {'p_values': fit.pvalues['const'],
             'r_2': fit.rsquared_adj,
             'alpha': alpha_an}
     return var
-
 
 dict = {}
 
